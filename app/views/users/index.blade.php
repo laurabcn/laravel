@@ -9,3 +9,5 @@
 @else
 	Todavia no hay ningún usuario registrado
 @endif
+
+{{ HTML::link("users/create", "Crear Usuario")}}
