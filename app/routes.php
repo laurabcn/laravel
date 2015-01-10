@@ -28,3 +28,5 @@ Route::get("test", function(){
 });
 
 Route::controller('users', 'UsersController');
+
+Route::controller('auth', 'UsersController');

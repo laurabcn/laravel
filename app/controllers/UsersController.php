@@ -18,7 +18,8 @@ class UsersController extends BaseController {
 		return View::make("users.create");
 	}
 	
-	public function postCreate(){
+	public function postCreate()
+	{
 		$user = new User;
 		
 		$user->real_name = Input::get("real_name");
@@ -30,7 +31,56 @@ class UsersController extends BaseController {
 		return Redirect::to('users');
 	}
 	
-	public function getPosts($id){
+	public function getDelete($id_user)
+	{
+		$user = User::find($id_user);
+		
+		if(is_null($user))
+		{
+			return Redirect::to("users");
+		}
+		
+		$user->delete();
+		
+		return Redirect::to("users");
+	}
+	
+	public function getUpdate($id_user)
+	{
+		$users = User::find($id_user);
+		
+		if(is_null($users)){
+			return Redirect::to("users");
+		}
+		
+		return View::make("users.update")->with("user", $users);
+
+	}
+	
+	public function postUpdate($id_user)
+	{
+		
+		$user = User::find($id_user);
+		
+		if(is_null($user)){
+			return Redirect::to("users");
+		}
+		
+		$user->real_name = Input::get('real_name');
+		$user->email = Input::get('email');
+		
+		if(Input::has('password')){
+			$user->password = Input::get('password');
+		}
+		
+		$user->save();
+		
+		return Redirect::to('users');
+	}
+	
+	
+	public function getPosts($id)
+	{
     	return "{$id} -->";
 	}
 	
